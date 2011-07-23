@@ -1,29 +1,29 @@
 <?php
 
 /**
- * Alter Output
+ * Text Filter
  *
- * The alter output package is a collection of filters meant to apply 
+ * The text filter package is a collection of filters meant to apply 
  * changes to your response output. However, it is by no means limited 
  * to that use. It can be used on any string value.
  *
- * @package    Alter Output
+ * @package    Text Filter
  * @version    1.0
  * @author     Ninjarite Development Group
  * @license    MIT License
  * @copyright  2011 Ninjarite Development
  */
-namespace AlterOutput;
+namespace TextFilter;
 
 /**
- * Alterer: Formats predefined abbreviations into <abbr> tags, complete
+ * Filter: Formats predefined abbreviations into <abbr> tags, complete
  * with titles.
  *
- * @package    Alter Output
+ * @package    Text Filter
  * @author     Frank Bardon Jr. <frank@nerdsrescue.me>
  * @version    1.0
  */
-class Alterer_Acronym {
+class Filter_Acronym {
 
 	/**
 	 * Process the input and return processed string
