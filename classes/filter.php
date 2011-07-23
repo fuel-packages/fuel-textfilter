@@ -26,39 +26,16 @@ namespace TextFilter;
 class Filter {
 
 	/**
-	 * Hold the singleton instance of Filter
-	 *
-	 * @var \TextFilter\Filter
+	 * Holds filter object to be run during process.
 	 */
-	protected static $instance;
+	protected $filter = array();
 
 	/**
-	 * Create or retrieve singleton instance of Filter
+	 * Class constructor
 	 *
 	 * @return \TextFilter\Filter
 	 */
-	public static function instance()
-	{
-		if (static::$instance === null)
-		{
-			static::$instance = new static;
-		}
-		return static::$instance;
-	}
-
-	/**
-	 * Holds filter objects to be run during process.
-	 */
-	protected $filters = array();
-
-	/**
-	 * Append a filter onto the END of the filter array.
-	 *
-	 * @param  string Class identifier for filter
-	 * @param  array  Configuration options for loaded filter
-	 * @return \TextFilter\Filter
-	 */
-	public function append($filter, array $config = array())
+	public function __construct($filter, $config = array())
 	{
 		$class = 'Filter_' . ucfirst($filter);
 		
@@ -69,43 +46,8 @@ class Filter {
 
 		$config = \Arr::merge($config, (array) \Config::load($filter, true));
 
-		$this->filters[] = new $class($config);
-		
-		return $this;
-	}
+		$this->filter = new $class($config);
 
-	/**
-	 * Prepend a filter onto the BEGINNING of the filter array.
-	 *
-	 * @param  string Class identifier for filter
-	 * @param  array  Configuration options for loaded filter
-	 * @return \TextFilter\Filter
-	 */
-	public function prepend($filter, array $config = array())
-	{
-		$class = 'Filter_' . ucfirst($filter);
-		
-		if ( ! class_exists($class))
-		{
-			throw new \Fuel_Exception("You have attempted to load a filter that does not exist. ['$class']");
-		}
-
-		$config = \Arr::merge($config, (array) \Config::load($filter, true));
-
-		array_unshift($this->filters, new $class($config));
-		
-		return $this;
-	}
-
-	/**
-	 * Reset this class
-	 *
-	 * @return \TextFilter\Filter
-	 */
-	public function reset()
-	{
-		$this->filters = array();
-		
 		return $this;
 	}
 
@@ -116,16 +58,7 @@ class Filter {
 	 */
 	public function process($output)
 	{
-		if ($this->original_output === null)
-		{
-			$this->original_output = $output;
-		}
-	
-		foreach ($this->filters as $filter)
-		{
-			$output = $filter->process($output);
-		}
-		return $output;
+		return $this->filter->process($output);
 	}
 }
 
