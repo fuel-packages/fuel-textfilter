@@ -52,12 +52,7 @@ class Filter {
 	protected $filters = array();
 
 	/**
-	 * Keeps a copy of the original content sent to Filter
-	 */
-	protected $original_output;
-
-	/**
-	 * Append an filter onto the END of the filter array.
+	 * Append a filter onto the END of the filter array.
 	 *
 	 * @param  string Class identifier for filter
 	 * @param  array  Configuration options for loaded filter
@@ -80,26 +75,38 @@ class Filter {
 	}
 
 	/**
+	 * Prepend a filter onto the BEGINNING of the filter array.
+	 *
+	 * @param  string Class identifier for filter
+	 * @param  array  Configuration options for loaded filter
+	 * @return \TextFilter\Filter
+	 */
+	public function prepend($filter, array $config = array())
+	{
+		$class = 'Filter_' . ucfirst($filter);
+		
+		if ( ! class_exists($class))
+		{
+			throw new \Fuel_Exception("You have attempted to load a filter that does not exist. ['$class']");
+		}
+
+		$config = \Arr::merge($config, (array) \Config::load($filter, true));
+
+		array_unshift($this->filters, new $class($config));
+		
+		return $this;
+	}
+
+	/**
 	 * Reset this class
 	 *
 	 * @return \TextFilter\Filter
 	 */
 	public function reset()
 	{
-		$this->original_output = null;
 		$this->filters = array();
 		
 		return $this;
-	}
-
-	/**
-	 * Send back the original submitted content.
-	 *
-	 * @return string Original string sent to this class.
-	 */
-	public function get_original()
-	{
-		return $this->original_output;
 	}
 
 	/**
