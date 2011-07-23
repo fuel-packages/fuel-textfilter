@@ -13,14 +13,22 @@
  * @license    MIT License
  * @copyright  2011 Ninjarite Development
  */
-Autoloader::add_core_namespace('TextFilter');
+namespace TextFilter;
 
-// Define available classes into the Autoloader
-Autoloader::add_classes(array(
-	'TextFilter\\Filter'                 => __DIR__.'/classes/filter.php',
-	'TextFilter\\Filter_Acronym'         => __DIR__.'/classes/filter/acronym.php',
+class FilterSet {
 
-	'TextFilter\\FilterSet'              => __DIR__.'/classes/filterset.php',
-));
+	protected static $instances = array();
 
-/* End of file bootstrap.php */
+	public static function factory($group)
+	{
+		if (array_key_exists($group, static::$instances))
+		{
+			throw new \Fuel_Exception("The filterset group name '$group' is already in use.");
+		}	
+	}
+
+	public static function instance($group = 'default')
+	{}
+}
+
+/* End of file: filterset.php */
