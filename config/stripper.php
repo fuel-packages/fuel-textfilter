@@ -27,4 +27,9 @@ return array(
 	 * Be warned, this includes IE conditionals.
 	 */
 	'strip_comments' => false,
+
+	/**
+	 * Would you like this filter to remove PHP tags?
+	 */
+	'strip_php' => false,
 );

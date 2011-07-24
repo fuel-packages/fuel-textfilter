@@ -38,16 +38,22 @@ class Filter_Stripper {
 		// Only strip comments if configured to do so.
 		if ( ! $config['strip_comments'])
 		{
-		  $output = preg_replace("@<\?@", "#?#", $output);
-		  $output = preg_replace("@<!--@", "#!--#", $output);
+			$output = preg_replace("@<!--@", "#!--#", $output);
+  		}
+  		if ( ! $config['strip_php'])
+  		{
+  			$output = preg_replace("@<\?@", "#?#", $output);
   		}
   
 		$output = strip_tags($output, $whitelist);
   
 		if ( ! $config['strip_comments'])
 		{
-			$output = preg_replace("@#\?#@", "<?", $output);
 			$output = preg_replace("@#!--#@", "<!--", $output);
+  		}
+  		if ( ! $config['strip_php'])
+  		{
+  			$output = preg_replace("@#\?#@", "<?", $output);
   		}
  
 		return $output;
