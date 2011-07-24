@@ -20,6 +20,7 @@ Autoloader::add_classes(array(
 	'TextFilter\\Filter'                 => __DIR__.'/classes/filter.php',
 	'TextFilter\\Filter_Acronym'         => __DIR__.'/classes/filter/acronym.php',
 	'TextFilter\\Filter_Stripper'        => __DIR__.'/classes/filter/stripper.php',
+	'TextFilter\\Filter_Markdown'        => __DIR__.'/classes/filter/markdown.php',
 
 	'TextFilter\\FilterSet'              => __DIR__.'/classes/filterset.php',
 ));
