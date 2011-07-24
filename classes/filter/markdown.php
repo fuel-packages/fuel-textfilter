@@ -37,7 +37,7 @@ class Filter_Markdown {
 	 * @param  string Incoming string
 	 * @return string Formatted string
 	 */
-	public function process($output)
+	public function process($output, $config = array())
 	{
 		$parser = new \MarkdownExtra_Parser;
 

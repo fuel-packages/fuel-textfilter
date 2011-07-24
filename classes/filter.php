@@ -31,6 +31,11 @@ class Filter {
 	public $name = array();
 
 	/**
+	 * Configuration
+	 */
+	protected $config = array();
+
+	/**
 	 * Holds filter object to be run during process.
 	 */
 	protected $filter = array();
@@ -49,8 +54,11 @@ class Filter {
 			throw new \Fuel_Exception("You have attempted to load a filter that does not exist. ['$class']");
 		}
 
-		$config       = \Arr::merge($config, (array) \Config::load($filter, true));
-		$this->filter = new $class($config);
+		$this->filter = new $class;
+		
+		// Lets configure the configuration!!! lol.
+		$baseconfig   = \Config::load($filter, true);
+		$this->config = \Arr::merge($baseconfig, $config);
 		$this->name   = array($filter => $class);
 
 		return $this;
@@ -63,7 +71,7 @@ class Filter {
 	 */
 	public function process($output)
 	{
-		return $this->filter->process($output);
+		return $this->filter->process($output, $this->config);
 	}
 }
 

@@ -31,9 +31,9 @@ class Filter_Acronym {
 	 * @param  string Incoming string
 	 * @return string Formatted string
 	 */
-	public function process($output)
+	public function process($output, $config = array())
 	{
-		$acronyms = \Config::get('acronym.acronyms');
+		$acronyms = $config['acronyms'];
 		
 		$search  = array_keys($acronyms);
 		$replace = array_values($acronyms);

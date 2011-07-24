@@ -31,12 +31,12 @@ class Filter_Stripper {
 	 * @param  string Incoming string
 	 * @return string Formatted string
 	 */
-	public function process($output)
+	public function process($output, $config = array())
 	{
-		$whitelist     = \Config::get('stripper.whitelist');
+		$whitelist = $config['whitelist'];
 
 		// Only strip comments if configured to do so.
-		if ( ! \Config::get('stripper.strip_comments', true))
+		if ( ! $config['strip_comments'])
 		{
 		  $output = preg_replace("@<\?@", "#?#", $output);
 		  $output = preg_replace("@<!--@", "#!--#", $output);
@@ -44,7 +44,7 @@ class Filter_Stripper {
   
 		$output = strip_tags($output, $whitelist);
   
-		if ( ! \Config::get('stripper.strip_comments', true))
+		if ( ! $config['strip_comments'])
 		{
 			$output = preg_replace("@#\?#@", "<?", $output);
 			$output = preg_replace("@#!--#@", "<!--", $output);
