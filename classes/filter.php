@@ -26,6 +26,11 @@ namespace TextFilter;
 class Filter {
 
 	/**
+	 * Name and class of loaded filter
+	 */
+	public $name = array();
+
+	/**
 	 * Holds filter object to be run during process.
 	 */
 	protected $filter = array();
@@ -44,15 +49,15 @@ class Filter {
 			throw new \Fuel_Exception("You have attempted to load a filter that does not exist. ['$class']");
 		}
 
-		$config = \Arr::merge($config, (array) \Config::load($filter, true));
-
+		$config       = \Arr::merge($config, (array) \Config::load($filter, true));
 		$this->filter = new $class($config);
+		$this->name   = array($filter => $class);
 
 		return $this;
 	}
 
 	/**
-	 * For each loaded filter, run the process method.
+	 * Process this filter.
 	 *
 	 * @return string Formatted output
 	 */
