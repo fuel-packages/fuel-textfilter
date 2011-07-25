@@ -46,7 +46,7 @@ class FilterSet {
 			throw new \Fuel_Exception("The filterset group name '$group' is already in use.");
 		}
 		
-		static::$instances[$group] = new static;
+		static::$instances[$group] = new static($group);
 
 		// If filters have been passed in, add them now.
 		if (count($filters) > 0)
@@ -78,9 +78,26 @@ class FilterSet {
 
 
 	/**
+	 * Group name.
+	 */
+	protected $group;
+
+	/**
 	 * Array of filters to be processed.
 	 */
 	protected $filters = array();
+
+	/**
+	 * Class constructor.
+	 *
+	 * @return \TextFilter\Filter
+	 */
+	public function __construct($group)
+	{
+		$this->group = $group;
+		
+		return $this;
+	}
 
 	/**
 	 * Append a filter onto the END of the filter array.
@@ -89,7 +106,7 @@ class FilterSet {
 	 * @param  array  Configuration options for loaded filter
 	 * @return \TextFilter\Filter
 	 */
-	public function append($filter, array $config = array())
+	public function append($filter, $config = array())
 	{
 		$this->filters[$filter] = new Filter($filter, $config);
 		
@@ -103,7 +120,7 @@ class FilterSet {
 	 * @param  array  Configuration options for loaded filter
 	 * @return \TextFilter\Filter
 	 */
-	public function prepend($filter, array $config = array())
+	public function prepend($filter, $config = array())
 	{
 		$temp = new Filter($filter, $config);
 
@@ -147,7 +164,7 @@ class FilterSet {
 	/**
 	 * Lists all filters currently added.
 	 * 
-	 * @return array List of filters.
+	 * @return array List of filters as keys and configs as values.
 	 */
 	public function filters()
 	{
@@ -155,7 +172,7 @@ class FilterSet {
 		
 		foreach ($this->filters as $filter)
 		{
-			$list[key($filter->name)] = current($filter->name);
+			$list[key($filter->name)] = current($filter->config);
 		}
 		return $list;
 	}

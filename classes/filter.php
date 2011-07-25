@@ -33,7 +33,7 @@ class Filter {
 	/**
 	 * Configuration
 	 */
-	protected $config = array();
+	public $config = array();
 
 	/**
 	 * Holds filter object to be run during process.
@@ -55,10 +55,18 @@ class Filter {
 		}
 
 		$this->filter = new $class;
-		
+
 		// Lets configure the configuration!!! lol.
 		$baseconfig   = \Config::load($filter, true);
-		$this->config = \Arr::merge($baseconfig, $config);
+		
+		if (is_array($baseconfig))
+		{
+			$this->config = \Arr::merge($baseconfig, $config);
+		}
+		else
+		{
+			$this->config = $config;
+		}
 		$this->name   = array($filter => $class);
 
 		return $this;
