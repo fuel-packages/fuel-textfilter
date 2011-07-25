@@ -35,6 +35,7 @@ class Filter_Markdown {
 	 * Process the input and return processed string
 	 *
 	 * @param  string Incoming string
+	 * @param  array  Configuration array
 	 * @return string Formatted string
 	 */
 	public function process($output, $config = array())
