@@ -19,6 +19,8 @@ namespace TextFilter;
 /**
  * Provides a unified interface to add output filters.
  *
+ * For a template for your own filters, visit (http://pastecode.com/13)
+ *
  * @package    Text Filter
  * @author     Frank Bardon Jr. <frank@nerdsrescue.me>
  * @version    1.0
