@@ -16,7 +16,7 @@
 namespace TextFilter;
 
 // Load the HTMLPurifier AutoLoader
-require_once __DIR__.'/../../vendor/htmlpurifier-4.3.0/HTMLPurifier.auto.php';
+require_once __DIR__.'/../../vendor/htmlpurifier-4.3.0/HTMLPurifier.standalone.php';
 
 /**
  * Filter: Basic integration with the htmlpurifier library...
@@ -35,7 +35,13 @@ class Filter_Htmlpurifier {
 	 */
 	public function process($output, $config = array())
 	{
-		return $output;
+		$config = HTMLPurifier_Config::createDefault();
+		$config->set('Core', 'Encoding', $config['encoding']); // replace with your encoding
+		$config->set('HTML', 'Doctype', $config['doctype']); // replace with your doctype
+
+		$purifier = new HTMLPurifier($config);
+
+		return $purifier->purify($output);
 	}
 }
 
