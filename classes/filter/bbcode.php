@@ -42,4 +42,4 @@ class Filter_BBCode {
 	}
 }
 
-/* End of file: textile.php */
+/* End of file: bbcode.php */
