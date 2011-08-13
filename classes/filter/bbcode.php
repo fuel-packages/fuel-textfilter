@@ -25,11 +25,7 @@ require_once __DIR__.'/../../vendor/bbcode/bbcode.php';
  * @author     Frank Bardon Jr. <frank@nerdsrescue.me>
  * @version    1.0
  */
-<<<<<<< HEAD
-class Filter_Textile {
-=======
 class Filter_BBCode {
->>>>>>> master
 
 	/**
 	 * Process the input and return processed string
