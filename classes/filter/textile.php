@@ -36,7 +36,7 @@ class Filter_Textile {
 	 */
 	public function process($output, $config = array())
 	{
-		$textile = new Textile();
+		$textile = new \Textile();
 
 		return ($config['trusted']) ? $textile->TextileThis($ouput) : $textile->TextileRestricted($output);
 	}
