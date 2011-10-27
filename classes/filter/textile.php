@@ -38,7 +38,7 @@ class Filter_Textile {
 	{
 		$textile = new Textile();
 
-		return ($config['trusted']) ? $textile->TextileThis($ouput) : $textile->TextileRestricted($output);
+		return ($config['trusted']) ? $textile->TextileThis($output) : $textile->TextileRestricted($output);
 	}
 }
 
